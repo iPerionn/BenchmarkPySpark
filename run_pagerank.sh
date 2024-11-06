@@ -33,8 +33,8 @@ for run in $(seq 1 $NUM_RUNS); do
     gcloud dataproc jobs submit pyspark \
         --cluster $CLUSTER_NAME \
         --region $REGION \
-        --py-files gs://your-bucket-name/path-to-your-script/pypagerank.py \
-        -- gs://your-bucket-name/output_data/ # Adjust this path to where you want the output
+        --py-files gs://benchmark_output/pypagerank.py \
+        -- gs://benchmark_output/ # Adjust this path to where you want the output
 
     # Supprimer le cluster après l'exécution
     echo "Suppression du cluster $CLUSTER_NAME..."
