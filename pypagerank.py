@@ -6,8 +6,7 @@ from operator import add
 import time
 import re
 import sys
-import datetime
-from datetime import datetime
+import uuid
 from pyspark.sql import SparkSession
 
 # Création de la session Spark
@@ -60,9 +59,15 @@ output_data = (
     f"Link with the highest PageRank: {link_with_highest_rank[0]}, PageRank: {link_with_highest_rank[1]}\n"
 )
 
+def generate_unique_filename():
+    unique_id = uuid.uuid4().hex
+    return f"result_{unique_id}.txt"
+
+# Exemple d'utilisation
+file_name = generate_unique_filename()
+
 # Définir un nom de fichier unique basé sur l'heure actuelle
-timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-output_file = f"gs://benchmark_output/pagerank_results/pagerank_result_{timestamp}.txt"
+output_file = f"gs://benchmark_output/pagerank_results/{file_name}"
 
 # Sauvegarder les résultats directement dans GCS
 sc = spark.sparkContext
