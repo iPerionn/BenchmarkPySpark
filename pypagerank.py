@@ -53,17 +53,19 @@ fin = time.time()
 
 link_with_highest_rank = max(result, key=lambda x: x[1])
 
-# Enregistrement des résultats dans un fichier texte
+# Enregistrement des résultats dans un format de chaîne
 output_data = (
-    f"Temps d'exécution : {fin-debut} secondes\n"
+    f"Temps d'exécution : {fin_debut} secondes\n"
     f"Link with the highest PageRank: {link_with_highest_rank[0]}, PageRank: {link_with_highest_rank[1]}\n"
 )
 
-with open('/tmp/pagerank_result.txt', 'w') as file:
-    file.write(output_data)
+# Définir un nom de fichier unique basé sur l'heure actuelle
+timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+output_file = f"gs://benchmark_output/pagerank_results/pagerank_result_{timestamp}.txt"
 
-# Téléchargement du fichier vers le bucket GCS avec nom unique
-spark.sparkContext.addFile(output_file)
-spark.sparkContext.parallelize(['pagerank_result.txt']).saveAsTextFile(output_file)
+# Sauvegarder les résultats directement dans GCS
+sc = spark.sparkContext
+sc.parallelize([output_data]).saveAsTextFile(output_file)
 
+# Arrêter le SparkContext
 spark.stop()

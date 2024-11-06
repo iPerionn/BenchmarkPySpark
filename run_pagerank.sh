@@ -9,6 +9,8 @@ SCRIPT_NAME="pypagerank.py"      # Nom du script à exécuter
 INPUT_DATA="gs://public_lddm_data/"  # Lien vers les données
 OUTPUT_BUCKET="gs://benchmark_output"  # Remplacez par votre bucket GCS
 
+gsutil cp ./pypagerank.py gs://benchmark_output/ 
+
 # Nombre d'itérations pour collecter 4 fois les données
 NUM_RUNS=1
 
