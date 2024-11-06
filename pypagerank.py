@@ -17,10 +17,6 @@ spark = SparkSession.builder\
 # Use a directory for output
 output_path = "gs://benchmark_output/pagerank_results"
 
-# Ajout d'un horodatage pour un nom de fichier unique
-timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-output_file = f"{output_path}/pagerank_result_{timestamp}.txt"
-
 # Chargement des données
 lines = spark.read.text("gs://public_lddm_data/small_page_links.nt").rdd.map(lambda r: r[0])
 
