@@ -55,7 +55,7 @@ link_with_highest_rank = max(result, key=lambda x: x[1])
 
 # Enregistrement des résultats dans un format de chaîne
 output_data = (
-    f"Temps d'exécution : {fin_debut} secondes\n"
+    f"Temps d'exécution : {fin-debut} secondes\n"
     f"Link with the highest PageRank: {link_with_highest_rank[0]}, PageRank: {link_with_highest_rank[1]}\n"
 )
 
