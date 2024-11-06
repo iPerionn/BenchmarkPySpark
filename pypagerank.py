@@ -14,8 +14,8 @@ spark = SparkSession.builder\
         .appName("PyPageRank")\
         .getOrCreate()
 
-# Arguments de l'exécution
-output_path = sys.argv[1]
+# Use a directory for output
+output_path = "gs://benchmark_output/pagerank_results"
 
 # Ajout d'un horodatage pour un nom de fichier unique
 timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
