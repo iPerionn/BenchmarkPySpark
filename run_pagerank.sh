@@ -10,7 +10,7 @@ INPUT_DATA="gs://public_lddm_data/"  # Lien vers les données
 OUTPUT_BUCKET="gs://benchmark_output"  # Remplacez par votre bucket GCS
 
 # Nombre d'itérations pour collecter 4 fois les données
-NUM_RUNS=4
+NUM_RUNS=1
 
 for run in $(seq 1 $NUM_RUNS); do
     # Définir le nom du cluster pour cette exécution
@@ -30,10 +30,9 @@ for run in $(seq 1 $NUM_RUNS); do
     # Se connecter au cluster Dataproc, cloner le repo GitHub, et exécuter le script
     echo "Clonage du dépôt GitHub et exécution du script PySpark RDD PageRank sur le cluster $CLUSTER_NAME (Run $run)..."
     
-    gcloud dataproc jobs submit pyspark \
+    gcloud dataproc jobs submit pyspark gs://benchmark_output/pypagerank.py\
         --cluster $CLUSTER_NAME \
         --region $REGION \
-        --py-files gs://benchmark_output/pypagerank.py \
         -- gs://benchmark_output/ # Adjust this path to where you want the output
 
     # Supprimer le cluster après l'exécution
