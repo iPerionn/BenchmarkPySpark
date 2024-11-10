@@ -14,8 +14,8 @@ gsutil cp ./${SCRIPT_NAME} gs://benchmark_output/
 # Nombre d'itérations pour collecter 4 fois les données
 NUM_RUNS=3
 # Définir le nom du cluster pour cette exécution
-CLUSTER_NAME="pagerank-cluster-$run"
-OUTPUT_DATA="${OUTPUT_BUCKET}/run_$run"  # Dossier de sortie spécifique pour chaque exécution
+CLUSTER_NAME="pagerank-cluster-singlenode"
+OUTPUT_DATA="${OUTPUT_BUCKET}/${CLUSTER_NAME}"  # Dossier de sortie spécifique pour chaque exécution
 
 
 echo "Création du cluster Dataproc $CLUSTER_NAME avec 1 nœud de travail..."
@@ -31,14 +31,14 @@ gcloud dataproc clusters create $CLUSTER_NAME \
 
 if [ $? -eq 0 ]; then
     for run in $(seq 1 $NUM_RUNS); do
-        echo "Exécution du script PySpark RDD PageRank sur le cluster $CLUSTER_NAME (Run $run)..."
+        echo "Exécution du script PySpark RDD PageRank sur le cluster $CLUSTER_NAME ..."
         
         gcloud dataproc jobs submit pyspark gs://benchmark_output/${SCRIPT_NAME} \
             --cluster $CLUSTER_NAME \
             --region $REGION \
             -- gs://benchmark_output/  # Ajustez ce chemin selon vos besoins de sortie
 
-        echo "Exécution $run terminée. Les résultats sont disponibles dans $OUTPUT_DATA"
+        echo "Exécution terminée. Les résultats sont disponibles dans $OUTPUT_DATA"
     done
 else
     echo "Failed to create the cluster. Exiting..."
