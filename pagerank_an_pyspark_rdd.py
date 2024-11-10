@@ -15,7 +15,8 @@ spark = SparkSession.builder\
 output_path = "gs://benchmark_output/pagerank_results"
 
 # Chargement des données
-lines = spark.read.text("gs://public_lddm_data/page_links_en.nt.bz2").rdd.map(lambda r: r[0])
+#lines = spark.read.text("gs://public_lddm_data/page_links_en.nt.bz2").rdd.map(lambda r: r[0])
+lines = spark.read.text("gs://public_lddm_data/small_page_links.nt").rdd.map(lambda r: r[0])
 
 import re
 def computeContribs(urls, rank) :
