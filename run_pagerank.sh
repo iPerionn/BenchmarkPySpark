@@ -16,7 +16,7 @@ NUM_RUNS=1
 
 for run in $(seq 1 $NUM_RUNS); do
     # Définir le nom du cluster pour cette exécution
-    CLUSTER_NAME="pagerank-cluster-$run"
+    CLUSTER_NAME="pagerank-cluster-newest-$run"
     OUTPUT_DATA="${OUTPUT_BUCKET}/run_$run"  # Dossier de sortie spécifique pour chaque exécution
 
     echo "Création du cluster Dataproc $CLUSTER_NAME avec 1 nœud de travail..."
@@ -24,7 +24,8 @@ for run in $(seq 1 $NUM_RUNS); do
         --region $REGION \
         --zone $ZONE \
         --single-node \
-        --master-machine-type "n1-standard-4" \
+        --master-machine-type "n1-standard-8" \
+	--worker-machine-type "n1-standard-8" \
         --master-boot-disk-size "50GB" \
         --image-version "2.0-debian10" \
         --project $PROJECT_ID
