@@ -17,27 +17,33 @@ NUM_RUNS=3
 CLUSTER_NAME="pagerank-cluster-$run"
 OUTPUT_DATA="${OUTPUT_BUCKET}/run_$run"  # Dossier de sortie spécifique pour chaque exécution
 
+
 echo "Création du cluster Dataproc $CLUSTER_NAME avec 1 nœud de travail..."
-    gcloud dataproc clusters create $CLUSTER_NAME \
-        --region $REGION \
-        --zone $ZONE \
-        --single-node \
-        --master-machine-type "n2-highmem-16" \
-	    --worker-machine-type "n2-highmem-16" \
-        --master-boot-disk-size "100GB" \
-        --image-version "2.0-debian10" \
-        --project $PROJECT_ID
+gcloud dataproc clusters create $CLUSTER_NAME \
+    --region $REGION \
+    --zone $ZONE \
+    --single-node \
+    --master-machine-type "n2-highmem-16" \
+    --worker-machine-type "n2-highmem-16" \
+    --master-boot-disk-size "100GB" \
+    --image-version "2.0-debian10" \
+    --project $PROJECT_ID
 
-for run in $(seq 1 $NUM_RUNS); do
-    echo "Exécution du script PySpark RDD PageRank sur le cluster $CLUSTER_NAME (Run $run)..."
-    
-    gcloud dataproc jobs submit pyspark gs://benchmark_output/${SCRIPT_NAME} \
-        --cluster $CLUSTER_NAME \
-        --region $REGION \
-        -- gs://benchmark_output/  # Ajustez ce chemin selon vos besoins de sortie
+if [ $? -eq 0 ]; then
+    for run in $(seq 1 $NUM_RUNS); do
+        echo "Exécution du script PySpark RDD PageRank sur le cluster $CLUSTER_NAME (Run $run)..."
+        
+        gcloud dataproc jobs submit pyspark gs://benchmark_output/${SCRIPT_NAME} \
+            --cluster $CLUSTER_NAME \
+            --region $REGION \
+            -- gs://benchmark_output/  # Ajustez ce chemin selon vos besoins de sortie
 
-    echo "Exécution $run terminée. Les résultats sont disponibles dans $OUTPUT_DATA"
-done
+        echo "Exécution $run terminée. Les résultats sont disponibles dans $OUTPUT_DATA"
+    done
+else
+    echo "Failed to create the cluster. Exiting..."
+    exit 1
+fi
 
 # Attendre que tous les jobs en arrière-plan soient terminés
 wait
