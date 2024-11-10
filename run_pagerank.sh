@@ -3,7 +3,6 @@
 # Variables de configuration
 PROJECT_ID="donneedistribuees"   # Remplacez par votre Project ID GCP
 REGION="us-central1"             # Modifiez selon votre région préférée
-ZONE="us-central1-a"             # Modifiez selon votre zone préférée
 REPO_URL="https://github.com/iPerionn/BenchmarkPySpark"  # URL du dépôt GitHub
 SCRIPT_NAME="pagerank_an_pyspark_rdd.py"      # Nom du script à exécuter
 INPUT_DATA="gs://public_lddm_data/"  # Lien vers les données
@@ -21,7 +20,6 @@ OUTPUT_DATA="${OUTPUT_BUCKET}/${CLUSTER_NAME}"  # Dossier de sortie spécifique 
 echo "Création du cluster Dataproc $CLUSTER_NAME avec 1 nœud de travail..."
 gcloud dataproc clusters create $CLUSTER_NAME \
     --region $REGION \
-    --zone $ZONE \
     --single-node \
     --master-machine-type "n2-highmem-16" \
     --worker-machine-type "n2-highmem-16" \
