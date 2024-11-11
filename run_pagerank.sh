@@ -10,38 +10,30 @@ OUTPUT_BUCKET="gs://benchmark_output"  # Remplacez par votre bucket GCS
 
 gsutil cp ./${SCRIPT_NAME} gs://benchmark_output/ 
 
-# Nombre d'itérations pour collecter 4 fois les données
-NUM_RUNS=3
 # Définir le nom du cluster pour cette exécution
-CLUSTER_NAME="pagerank-cluster-singlenode"
+CLUSTER_NAME="cluster-quadnode"
 OUTPUT_DATA="${OUTPUT_BUCKET}/${CLUSTER_NAME}"  # Dossier de sortie spécifique pour chaque exécution
 
 
-echo "Création du cluster Dataproc $CLUSTER_NAME avec 1 nœud de travail..."
+echo "Création du cluster Dataproc $CLUSTER_NAME avec 4 nœud de travail..."
 gcloud dataproc clusters create $CLUSTER_NAME \
     --region $REGION \
-    --single-node \
-    --master-machine-type "n2-highmem-16" \
-    --worker-machine-type "n2-highmem-16" \
-    --master-boot-disk-size "100GB" \
+    --master-machine-type n2-highmem-8 \
+    --master-boot-disk-size 100GB \
+    --num-workers 4 \
+    --worker-machine-type n2-highmem-8 \
+    --worker-boot-disk-size 100GB \
     --image-version "2.0-debian10" \
     --project $PROJECT_ID
 
-if [ $? -eq 0 ]; then
-    for run in $(seq 1 $NUM_RUNS); do
-        echo "Exécution du script PySpark RDD PageRank sur le cluster $CLUSTER_NAME ..."
-        
-        gcloud dataproc jobs submit pyspark gs://benchmark_output/${SCRIPT_NAME} \
-            --cluster $CLUSTER_NAME \
-            --region $REGION \
-            -- gs://benchmark_output/  # Ajustez ce chemin selon vos besoins de sortie
+echo "Exécution du script PySpark RDD PageRank sur le cluster $CLUSTER_NAME ..."
 
-        echo "Exécution terminée. Les résultats sont disponibles dans $OUTPUT_DATA"
-    done
-else
-    echo "Failed to create the cluster. Exiting..."
-    exit 1
-fi
+gcloud dataproc jobs submit pyspark gs://benchmark_output/${SCRIPT_NAME} \
+    --cluster $CLUSTER_NAME \
+    --region $REGION \
+    -- gs://benchmark_output/  # Ajustez ce chemin selon vos besoins de sortie
+
+echo "Exécution terminée. Les résultats sont disponibles dans $OUTPUT_DATA"
 
 # Attendre que tous les jobs en arrière-plan soient terminés
 wait
