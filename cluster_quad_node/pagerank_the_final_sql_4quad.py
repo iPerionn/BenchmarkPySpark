@@ -13,10 +13,12 @@ output_path = "gs://benchmark_output/pagerank_results"
 spark = SparkSession.builder\
     .appName("MonAppSpark")\
     .master("local[*]")\
+    .config("spark.master", "yarn") \
+    .config("spark.executor.instances", "4") \
     .config("spark.executor.memory", "12g")\
     .config("spark.executor.cores", "4")\
-    .config("spark.driver.memory", "12g")\
-    .config("spark.driver.cores", "1")\
+    .config("spark.driver.memory", "13g")\
+    .config("spark.driver.cores", "4")\
     .config("spark.local.dir", "/tmp/spark-tmp")\
     .getOrCreate()
 
@@ -87,7 +89,7 @@ output_data = (
 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
 # Define the output path using the timestamp
-output_file = f"gs://benchmark_output/pagerank_results/SQL_Singlenode_output_folder_{timestamp}"
+output_file = f"gs://benchmark_output/pagerank_results/SQL_Quadnode_output_folder_{timestamp}"
 
 # Sauvegarder les résultats directement dans GCS
 sc = spark.sparkContext
