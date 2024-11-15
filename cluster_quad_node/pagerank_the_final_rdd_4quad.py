@@ -103,7 +103,7 @@ output_data = (
 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
 # Define the output path using the timestamp
-output_file = f"gs://benchmark_output/pagerank_results/RDD_Singlenode_output_folder_{timestamp}"
+output_file = f"gs://benchmark_output/pagerank_results/RDD_Quadnode_output_folder_{timestamp}"
 
 # Sauvegarder les résultats directement dans GCS
 sc = spark.sparkContext
