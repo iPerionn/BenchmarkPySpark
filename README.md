@@ -23,9 +23,17 @@ La référence google cloud des machines est la suivante : n1-standard-4.
 
 ## Résultats et Analyse
 La page avec le plus haut Page Rank de nos éxecution était ... avec un page rank de ...
+
 Voici le graphique de comparaison entre RDD et DataFrame :
-![image](./diagram.png)
+
+![image](./test.png)
+
 *Les données récoltées lors de ces experimentations sont disponibles dans le dossier ...*
+
+### Discutions
+Les résultats montrent que ... est significativement plus performant de ...
+Cela est du au fait que pour les dataframes, le calcul passe par un optimiseur.
+On pourrait se questionner sur les améliorations que l'on pourrait apporter sur notre algorithme RDD pour améliorer son temps d'executions.
 
 ## Reproductibilité
 Nos experiences sont reproductibles. Vous retrouverez dans le git, un dossier spécifique à l'éxecution des 2 algorithmes sur chaques cluster (1, 2 et 4 workers).
