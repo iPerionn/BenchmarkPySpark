@@ -20,6 +20,7 @@ Nous avons mesuré pour chaque algorithme le temps d'execution des 10 itération
 Nous avons executé ces algorithmes sur la plateforme GCP en utilisant l'outil Dataproc.
 Les machines était dotée de 4 vCPU et de 12g de Mémoire.
 La référence google cloud des machines virtuelles utilisée est la suivante : n1-standard-4.
+Nous avons essayer tant bien que mal a faire 3 executions par algorithme sur chaques type de cluster cependant par manque de temps et de crédits, certaines experiences n'ont été répliquée que 1 où 2 fois (certaines on aussi été répliquées 3 fois).
 
 ## Composition des différents clusters :
 Le cluster single est composé de 1 machine faisant office de worker et master.
@@ -36,12 +37,14 @@ Voici le graphique de comparaison entre RDD et DataFrame :
 
 ![image](./plot.png)
 
-*Les données récoltées lors de ces experimentations sont disponibles dans le dossier ...*
+*Les données récoltées lors de ces experimentations sont disponibles dans le dossier ResultBenchmark*
 
 ### Discutions
-Les résultats montrent que dataframe est significativement plus performant de RDD
+Les résultats montrent que dataframe est significativement plus performant de RDD.
 Cela est du au fait que pour les dataframes, le calcul passe par un optimiseur.
 Il est nécessaire aussi de se questionner sur les optimisations a faire côté de l'algorithme rdd, une optimisation a commencé a être envisagée mais nous n'avons pas eu le temps de la finir.
+On pense que nos résultats sont aussi imprécis puisque l'algorithme Spark SQL avait un soucis dont on c'est aperçu trop tard.
+Avec une version corrigée de l'algorithme SQL, exécutée sur un cluster avec 1 machines, le temps d'éxecution se rapproche de celui du RDD mais reste néamoins légèrement plus rapide.
 
 ## Reproductibilité
 Nos experiences sont reproductibles. Vous retrouverez dans le git, un dossier spécifique à l'éxecution des 2 algorithmes sur chaques cluster (1, 2 et 4 workers).
