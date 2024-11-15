@@ -1,4 +1,4 @@
-### Benchmark Spark : RDD vs SparkSQL
+# Benchmark Spark : RDD vs SparkSQL
 
 ## Introduction
 Ce projet a pour but de faire une analyse comparative entre **PySpark RDD** et **PySpark DataFrames**.
