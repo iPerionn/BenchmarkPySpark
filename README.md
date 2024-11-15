@@ -22,7 +22,7 @@ Les machines était dotée de 4 vCPU et de 12g de Mémoire.
 La référence google cloud des machines est la suivante : n1-standard-4.
 
 ## Résultats et Analyse
-La page avec le plus haut Page Rank de nos éxecution était [...](http://dbpedia.org/resource/Living_people) avec un page rank de 19320.8 pour l'algo SQL et de 86062.5 pour le RDD
+La page avec le plus haut Page Rank de nos éxecution était [http://dbpedia.org/resource/Living_people](http://dbpedia.org/resource/Living_people) avec un page rank de 19320.8 pour l'algo SQL et de 86062.5 pour le RDD
 
 Voici le graphique de comparaison entre RDD et DataFrame :
 
