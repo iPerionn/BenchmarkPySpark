@@ -22,7 +22,7 @@ gcloud dataproc clusters create $CLUSTER_NAME \
   --master-machine-type=n1-standard-4 \
   --image-version=2.0-debian10 \
   --project=$PROJECT_ID \
-  --master-boot-disk-size=100GB
+  --master-boot-disk-size=120GB
 
 echo "Exécution du script PySpark RDD PageRank sur le cluster $CLUSTER_NAME ..."
 

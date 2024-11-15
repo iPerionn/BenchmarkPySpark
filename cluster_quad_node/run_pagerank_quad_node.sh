@@ -4,7 +4,7 @@
 PROJECT_ID="donneedistribuees"   # Remplacez par votre Project ID GCP
 REGION="us-central1"             # Modifiez selon votre région préférée
 REPO_URL="https://github.com/iPerionn/BenchmarkPySpark"  # URL du dépôt GitHub
-SCRIPT_NAME="pagerank_the_final_sql_4quad.py"      # Nom du script à exécuter
+SCRIPT_NAME="pagerank_the_final_rdd_4quad.py"      # Nom du script à exécuter
 INPUT_DATA="gs://public_lddm_data/"  # Lien vers les données
 OUTPUT_BUCKET="gs://benchmark_output"  # Remplacez par votre bucket GCS
 
