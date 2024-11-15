@@ -44,7 +44,7 @@ Les résultats montrent que dataframe est significativement plus performant de R
 Cela est du au fait que pour les dataframes, le calcul passe par un optimiseur.
 Il est nécessaire aussi de se questionner sur les optimisations a faire côté de l'algorithme rdd, une optimisation a commencé a être envisagée mais nous n'avons pas eu le temps de la finir.
 On pense que nos résultats sont aussi imprécis puisque l'algorithme Spark SQL avait un soucis dont on c'est aperçu trop tard.
-Avec une version corrigée de l'algorithme SQL, exécutée sur un cluster avec 1 machines, le temps d'éxecution se rapproche de celui du RDD mais reste néamoins légèrement plus rapide.
+Avec une version corrigée de l'algorithme SQL, exécutée sur un cluster avec 1 machines, le temps d'éxecution se rapproche de celui du RDD mais reste néamoins plus rapide.
 
 ## Reproductibilité
 Nos experiences sont reproductibles. Vous retrouverez dans le git, un dossier spécifique à l'éxecution des 2 algorithmes sur chaques cluster (1, 2 et 4 workers).
